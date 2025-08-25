@@ -11,12 +11,16 @@ public class GrabHandPose : MonoBehaviour
     public HandData RightHandPose;
     public HandData LeftHandPose;
 
+    private HandData currentHandData;
+
     private Vector3 startHandPosition;
     private Vector3 finalHandPosition;
     private Quaternion startHandRotation;
     private Quaternion finalHandRotation;
     private Quaternion[] startFingerRotation;
     private Quaternion[] finalFingerRotation;
+
+    public GameObject attachPoint;
 
     private XRGrabInteractable grabInteractable;
     private float nearDistanceThreshold = 0.2f; // Adjust as needed
@@ -38,7 +42,7 @@ public class GrabHandPose : MonoBehaviour
     {
         if (currentInteractor == null) return;
 
-        float distance = Vector3.Distance(currentInteractor.transform.position, grabInteractable.transform.position);
+        float distance = Vector3.Distance(currentInteractor.transform.position, attachPoint.transform.position);
 
         if (!poseApplied && distance < nearDistanceThreshold)
         {
@@ -55,6 +59,8 @@ public class GrabHandPose : MonoBehaviour
     }
     private void OnSelectEntered(SelectEnterEventArgs args)
     {
+        Debug.Log("OnSelectEntered");
+
         XRBaseInteractor interactor = args.interactorObject as XRBaseInteractor;
         if (interactor == null) return;
 
@@ -74,6 +80,8 @@ public class GrabHandPose : MonoBehaviour
 
     private void SetupPose(XRBaseInteractor interactor)
     {
+        Debug.Log("SetUpPose");
+
         HandData handData = interactor.transform.GetComponentInChildren<HandData>();
         if (handData == null) return;
 
@@ -83,6 +91,8 @@ public class GrabHandPose : MonoBehaviour
             SetHandDataValues(handData, RightHandPose);
         else
             SetHandDataValues(handData, LeftHandPose);
+
+        if (startFingerRotation == null || finalFingerRotation == null) return;
 
         StartCoroutine(SetHandDataRoutine(handData, finalHandPosition, finalHandRotation, finalFingerRotation,
             startHandPosition, startHandRotation, startFingerRotation));
@@ -94,9 +104,15 @@ public class GrabHandPose : MonoBehaviour
         if (handData == null) return;
 
         handData.Animator.enabled = true;
+
+        // Make sure we’ve initialized values
+        if (startFingerRotation == null || finalFingerRotation == null) return;
+        if (startFingerRotation.Length != handData.FingerBones.Length) return;
+
         StartCoroutine(SetHandDataRoutine(handData, startHandPosition, startHandRotation, startFingerRotation,
             finalHandPosition, finalHandRotation, finalFingerRotation));
     }
+
 
     private void SetHandDataValues(HandData h1, HandData h2)
     {
@@ -129,7 +145,8 @@ public class GrabHandPose : MonoBehaviour
 
             for (int i = 0; i < newBoneRot.Length; i++)
             {
-                h.FingerBones[i].localRotation = Quaternion.Lerp(startBoneRot[i], newBoneRot[i], t);
+                if (h.FingerBones[i] != null)
+                    h.FingerBones[i].localRotation = Quaternion.Lerp(startBoneRot[i], newBoneRot[i], t);
             }
 
             timer += Time.deltaTime;
