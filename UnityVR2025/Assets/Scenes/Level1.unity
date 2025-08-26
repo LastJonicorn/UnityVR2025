@@ -577,6 +577,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Target: {fileID: 1425364719}
   isRightHand: 1
+  useCustomPose: 0
+  localPositionOffset: {x: 0, y: 0, z: -0.05}
 --- !u!1 &157733528
 GameObject:
   m_ObjectHideFlags: 0
@@ -3902,7 +3904,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 109434732395451517, guid: 65847589f926b734d9eaed6e25f0046b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.049999952
+      value: -0.05
       objectReference: {fileID: 0}
     - target: {fileID: 109434732395451517, guid: 65847589f926b734d9eaed6e25f0046b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4852,6 +4854,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Target: {fileID: 1597968601}
   isRightHand: 0
+  useCustomPose: 0
+  localPositionOffset: {x: 0, y: 0, z: -0.05}
 --- !u!1001 &1477236908
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6214,7 +6218,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5686134208185136530, guid: 1fd3a7c43c8190f4d8c167ebde694364, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.049999952
+      value: -0.05
       objectReference: {fileID: 0}
     - target: {fileID: 5686134208185136530, guid: 1fd3a7c43c8190f4d8c167ebde694364, type: 3}
       propertyPath: m_LocalRotation.w

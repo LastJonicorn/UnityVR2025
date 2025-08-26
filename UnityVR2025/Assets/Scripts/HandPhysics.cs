@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class HandPhysics : MonoBehaviour
 {
@@ -9,34 +8,39 @@ public class HandPhysics : MonoBehaviour
     public bool isRightHand = true;
     private Rigidbody rb;
 
-    // Start is called before the first frame update
+    [HideInInspector] public bool useCustomPose = false; // Used in GrabHandPose
+
+    // Offset to bring hand closer/further from controller
+    [SerializeField] private Vector3 localPositionOffset = new Vector3(0f, 0f, -0.05f);
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
-        //Position
-        rb.linearVelocity = (Target.position - transform.position) / Time.fixedDeltaTime;
-
-        //Rotation
-        if (!isRightHand)
+        // Skip physics if we're using a custom pose
+        if (useCustomPose)
         {
-            Quaternion postRotation = transform.rotation * Quaternion.Euler(0, 0, -90);
-            Quaternion RotationDifference = Target.rotation * Quaternion.Inverse(postRotation);
-            RotationDifference.ToAngleAxis(out float AngleInDegree, out Vector3 RotationAxis);
-            Vector3 RotationDifferenceInDegree = AngleInDegree * RotationAxis;
-            rb.angularVelocity = (RotationDifferenceInDegree * Mathf.Deg2Rad / Time.fixedDeltaTime);
+            rb.isKinematic = true;
         }
         else
         {
-            Quaternion postRotation = transform.rotation * Quaternion.Euler(0, 0, 90);
-            Quaternion RotationDifference = Target.rotation * Quaternion.Inverse(postRotation);
-            RotationDifference.ToAngleAxis(out float AngleInDegree, out Vector3 RotationAxis);
-            Vector3 RotationDifferenceInDegree = AngleInDegree * RotationAxis;
-            rb.angularVelocity = (RotationDifferenceInDegree * Mathf.Deg2Rad / Time.fixedDeltaTime);
+            rb.isKinematic = false;
+
+            // Apply offset relative to Target's rotation
+            Vector3 targetPosition = Target.position + Target.rotation * localPositionOffset;
+
+            // Position
+            rb.linearVelocity = (targetPosition - transform.position) / Time.fixedDeltaTime;
+
+            // Rotation
+            Quaternion postRotation = transform.rotation * Quaternion.Euler(0, 0, isRightHand ? 90 : -90);
+            Quaternion rotationDiff = Target.rotation * Quaternion.Inverse(postRotation);
+            rotationDiff.ToAngleAxis(out float angleInDegree, out Vector3 rotationAxis);
+            Vector3 rotationDifference = angleInDegree * rotationAxis;
+            rb.angularVelocity = (rotationDifference * Mathf.Deg2Rad / Time.fixedDeltaTime);
         }
     }
 }

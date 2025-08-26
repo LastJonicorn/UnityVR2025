@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -27,6 +28,9 @@ public class GrabHandPose : MonoBehaviour
 
     private XRBaseInteractor currentInteractor;
     private bool poseApplied = false;
+
+    // Store original layers so we can restore them
+    private Dictionary<GameObject, int> originalLayers = new Dictionary<GameObject, int>();
 
     void Start()
     {
@@ -59,13 +63,19 @@ public class GrabHandPose : MonoBehaviour
     }
     private void OnSelectEntered(SelectEnterEventArgs args)
     {
-        Debug.Log("OnSelectEntered");
-
         XRBaseInteractor interactor = args.interactorObject as XRBaseInteractor;
         if (interactor == null) return;
 
         currentInteractor = interactor;
         poseApplied = false; // Reset so Update can apply pose if near
+
+        //Save & set layer to "Grabbed"
+        if (!originalLayers.ContainsKey(gameObject))
+            originalLayers[gameObject] = gameObject.layer;
+
+        int grabbedLayer = LayerMask.NameToLayer("Grabbed");
+        if (grabbedLayer != -1) // Ensure the layer exists
+            gameObject.layer = grabbedLayer;
     }
 
     private void OnSelectExited(SelectExitEventArgs args)
@@ -76,14 +86,24 @@ public class GrabHandPose : MonoBehaviour
         ResetPose(interactor);
         currentInteractor = null;
         poseApplied = false;
+
+        //Restore original layer
+        if (originalLayers.TryGetValue(gameObject, out int originalLayer))
+        {
+            gameObject.layer = originalLayer;
+            originalLayers.Remove(gameObject);
+        }
     }
 
     private void SetupPose(XRBaseInteractor interactor)
     {
-        Debug.Log("SetUpPose");
-
         HandData handData = interactor.transform.GetComponentInChildren<HandData>();
         if (handData == null) return;
+
+        // Disable hand physics while posing 
+        //NEW for HandPhysics
+        HandPhysics physics = handData.GetComponent<HandPhysics>();
+        if (physics != null) physics.useCustomPose = true;
 
         handData.Animator.enabled = false;
 
@@ -102,6 +122,11 @@ public class GrabHandPose : MonoBehaviour
     {
         HandData handData = interactor.transform.GetComponentInChildren<HandData>();
         if (handData == null) return;
+
+        // Re-enable hand physics after posing 
+        //NEW for HandPhysics
+        HandPhysics physics = handData.GetComponent<HandPhysics>();
+        if (physics != null) physics.useCustomPose = false;
 
         handData.Animator.enabled = true;
 
