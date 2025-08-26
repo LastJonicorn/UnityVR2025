@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6009785785515109666}
   - component: {fileID: 2839941141107223286}
   - component: {fileID: 5889194987111341916}
+  - component: {fileID: 5376284388238620150}
   m_Layer: 12
   m_Name: Handle
   m_TagString: Untagged
@@ -222,6 +223,19 @@ FixedJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &5376284388238620150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6172549846632605745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3eff552a5d518fa47a946dbb38f6ca9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetRigidbody: {fileID: 308507103880256100}
 --- !u!1 &6274628184572877236
 GameObject:
   m_ObjectHideFlags: 0
@@ -466,7 +480,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -870,7 +884,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -990,6 +1004,7 @@ GameObject:
   - component: {fileID: 5030425317659035828}
   - component: {fileID: 8454399313421897489}
   - component: {fileID: 7021072025781196863}
+  - component: {fileID: 7443468065958524984}
   m_Layer: 12
   m_Name: Handle
   m_TagString: Untagged
@@ -1199,6 +1214,19 @@ FixedJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &7443468065958524984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8033106455676532681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3eff552a5d518fa47a946dbb38f6ca9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetRigidbody: {fileID: 8217486672699938795}
 --- !u!1 &8418623668692971217
 GameObject:
   m_ObjectHideFlags: 0
@@ -1212,6 +1240,7 @@ GameObject:
   - component: {fileID: 3084691720138196797}
   - component: {fileID: 2506186264761367127}
   - component: {fileID: 8555626692581458976}
+  - component: {fileID: 2697600230309286815}
   m_Layer: 12
   m_Name: Handle
   m_TagString: Untagged
@@ -1421,6 +1450,19 @@ FixedJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &2697600230309286815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8418623668692971217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3eff552a5d518fa47a946dbb38f6ca9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetRigidbody: {fileID: 1381513251781886004}
 --- !u!1001 &65087927752720773
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1751,11 +1793,11 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!1 &5433788869023466481 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3778644264426962316, guid: 1963e9df3d8beb14cb1b106c015f0e20, type: 3}
@@ -1909,7 +1951,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0

@@ -618,7 +618,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &7189572256936636462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -757,7 +757,6 @@ MonoBehaviour:
   RightHandPose: {fileID: 3954042935465868381}
   LeftHandPose: {fileID: 204508779391802759}
   attachPoint: {fileID: 2736339393566883293}
-  nearDistanceThreshold: 0.5
 --- !u!4 &4473158496263001125 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4cd8019d1cff0294096e2563ce3a3335, type: 3}

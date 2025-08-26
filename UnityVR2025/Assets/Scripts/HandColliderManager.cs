@@ -5,56 +5,74 @@ using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 public class HandColliderManager : MonoBehaviour
 {
-    private XRDirectInteractor interactor;
-    private List<Collider> handColliders = new List<Collider>();
+    [Tooltip("Interactor that fires grab/release events (Near-Far/Direct). If left empty, will search in parents.")]
+    public XRBaseInteractor interactor;
 
-    [Tooltip("Delay before re-enabling colliders after release, to avoid collision flicks.")]
+    [Tooltip("Root of the hand model that contains the physical colliders (palm/fingers).")]
+    public Transform handRoot;
+
+    [Tooltip("Delay before re-enabling colliders after release to avoid physics pops.")]
     public float reenableDelay = 0.05f;
+
+    private readonly List<Collider> _handColliders = new List<Collider>();
+
+    void Reset()
+    {
+        // Helpful defaults when adding the component
+        interactor = GetComponentInParent<XRBaseInteractor>();
+        handRoot = transform;
+    }
 
     void Awake()
     {
-        interactor = GetComponent<XRDirectInteractor>();
+        if (interactor == null)
+            interactor = GetComponentInParent<XRBaseInteractor>();
 
-        // Gather all colliders in the hand (but skip triggers if you want to keep sensors like finger tip triggers).
-        foreach (var col in GetComponentsInChildren<Collider>())
+        if (interactor == null)
         {
-            if (!col.isTrigger)
-                handColliders.Add(col);
+            Debug.LogError($"{name}: No XRBaseInteractor found. Assign one in the inspector.");
+            enabled = false;
+            return;
         }
 
-        // Hook into grab events
-        interactor.selectEntered.AddListener(OnGrab);
-        interactor.selectExited.AddListener(OnRelease);
+        if (handRoot == null)
+            handRoot = transform;
+
+        _handColliders.Clear();
+        foreach (var c in handRoot.GetComponentsInChildren<Collider>(true))
+        {
+            // Only manage solid colliders; keep triggers (poke sensors, etc.) untouched
+            if (!c.isTrigger)
+                _handColliders.Add(c);
+        }
+
+        // Subscribe with parameterless lambdas to avoid signature/version issues
+        interactor.selectEntered.AddListener(_ => OnGrab());
+        interactor.selectExited.AddListener(_ => OnRelease());
     }
 
-    void OnDestroy()
+    // Note: removing specific lambda listeners is messy; usually fine since the hand lives with the interactor.
+    // If you need strict cleanup, store the delegates and use matching types for your XRI version.
+
+    private void OnGrab()
     {
-        // Clean up listeners
-        interactor.selectEntered.RemoveListener(OnGrab);
-        interactor.selectExited.RemoveListener(OnRelease);
+        SetHandColliders(false);
     }
 
-    private void OnGrab(SelectEnterEventArgs args)
+    private void OnRelease()
     {
-        SetHandCollidersActive(false);
-    }
-
-    private void OnRelease(SelectExitEventArgs args)
-    {
-        // Re-enable after small delay to avoid physics explosion
+        CancelInvoke(nameof(ReenableColliders));
         Invoke(nameof(ReenableColliders), reenableDelay);
     }
 
     private void ReenableColliders()
     {
-        SetHandCollidersActive(true);
+        SetHandColliders(true);
     }
 
-    private void SetHandCollidersActive(bool active)
+    private void SetHandColliders(bool enabled)
     {
-        foreach (var col in handColliders)
-        {
-            col.enabled = active;
-        }
+        foreach (var c in _handColliders)
+            c.enabled = enabled;
     }
 }
