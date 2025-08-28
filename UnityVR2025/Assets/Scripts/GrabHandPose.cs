@@ -123,20 +123,17 @@ public class GrabHandPose : MonoBehaviour
         HandData handData = interactor.transform.GetComponentInChildren<HandData>();
         if (handData == null) return;
 
-        // Re-enable hand physics after posing 
-        //NEW for HandPhysics
+        // Re-enable physics
         HandPhysics physics = handData.GetComponent<HandPhysics>();
         if (physics != null) physics.useCustomPose = false;
 
+        // Re-enable animator for natural tracking
         handData.Animator.enabled = true;
 
-        // Make sure we’ve initialized values
-        if (startFingerRotation == null || finalFingerRotation == null) return;
-        if (startFingerRotation.Length != handData.FingerBones.Length) return;
-
-        StartCoroutine(SetHandDataRoutine(handData, startHandPosition, startHandRotation, startFingerRotation,
-            finalHandPosition, finalHandRotation, finalFingerRotation));
+        // Don’t run the SetHandDataRoutine back to “startPose”
+        // Just let animator+physics restore hand to tracked controller
     }
+
 
 
     private void SetHandDataValues(HandData h1, HandData h2)
