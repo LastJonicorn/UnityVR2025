@@ -544,7 +544,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -6733177361254619370, guid: 4cd8019d1cff0294096e2563ce3a3335, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: -5568371526223589888, guid: 4cd8019d1cff0294096e2563ce3a3335, type: 3}
       propertyPath: m_Name
@@ -552,7 +552,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5568371526223589888, guid: 4cd8019d1cff0294096e2563ce3a3335, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: -1439730007547781893, guid: 4cd8019d1cff0294096e2563ce3a3335, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -564,7 +564,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4cd8019d1cff0294096e2563ce3a3335, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4cd8019d1cff0294096e2563ce3a3335, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 7202271454713460447, guid: 4cd8019d1cff0294096e2563ce3a3335, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -576,7 +580,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8513859187771203891, guid: 4cd8019d1cff0294096e2563ce3a3335, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -698,7 +702,7 @@ MonoBehaviour:
   m_InteractionManager: {fileID: 0}
   m_Colliders: []
   m_InteractionLayers:
-    m_Bits: 1
+    m_Bits: 16
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_FocusMode: 1
@@ -804,7 +808,7 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
-  m_FarAttachMode: 1
+  m_FarAttachMode: 0
 --- !u!114 &5760791498787873843
 MonoBehaviour:
   m_ObjectHideFlags: 0

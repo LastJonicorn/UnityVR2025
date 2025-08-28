@@ -17,7 +17,7 @@ MonoBehaviour:
   - Interactable
   - DoorInteractable
   - OnlyNear
-  - 
+  - FarInteract
   - 
   - 
   - 
