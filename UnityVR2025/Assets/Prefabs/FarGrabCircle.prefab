@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 283367951197458635}
   - component: {fileID: 8203376982538022971}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: FarGrabCircle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
