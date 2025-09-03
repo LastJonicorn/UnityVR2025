@@ -51,13 +51,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _LiquidSlider: 0.621
+    - _LiquidSlider: 0.61
     - _QueueControl: 0
     - _QueueOffset: 0
     - _WobbleX: 0
     - _WobbleZ: 0
     m_Colors:
-    - _SideColor: {r: 0.745283, g: 0.5701073, b: 0.3410021, a: 0.6313726}
-    - _TopColor: {r: 0.9056604, g: 0.7320611, b: 0.5169099, a: 0.6313726}
+    - _SideColor: {r: 0.745283, g: 0.5701073, b: 0.34100205, a: 1}
+    - _TopColor: {r: 0.9056604, g: 0.7320611, b: 0.51690984, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

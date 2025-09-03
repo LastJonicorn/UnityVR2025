@@ -168,8 +168,6 @@ MonoBehaviour:
   LeftHandPose: {fileID: 78560286663308641}
   RightHandPose: {fileID: 7800574916901095199}
   PoseTransitionDuration: 0.2
-  poseWeight: 0.7
-  wallNormal: {fileID: 2233228994925158006}
 --- !u!4 &2233228994925158006 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ab9eb89521c9b4642888551c559f1bdc, type: 3}
