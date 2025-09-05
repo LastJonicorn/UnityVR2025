@@ -647,7 +647,7 @@ MonoBehaviour:
   m_Colliders:
   - {fileID: 12215586776680129}
   m_InteractionLayers:
-    m_Bits: 1
+    m_Bits: 7
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_FocusMode: 1
@@ -721,7 +721,7 @@ MonoBehaviour:
   m_SmoothPosition: 0
   m_SmoothPositionAmount: 8
   m_TightenPosition: 0.1
-  m_TrackRotation: 1
+  m_TrackRotation: 0
   m_SmoothRotation: 0
   m_SmoothRotationAmount: 8
   m_TightenRotation: 0.1
